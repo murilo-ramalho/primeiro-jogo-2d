@@ -17,7 +17,7 @@ public class Inimigo extends Rectangle{
     }
     public void Tick(){
         boolean moved = true;
-        if (right==1){
+        if (right==1 && World.isFree(x+1,y)){
             x++;
         }
 
@@ -25,7 +25,7 @@ public class Inimigo extends Rectangle{
             shoot = false;
             bullets.add(new Bullet(x,y,di));
         }
-        for (int i = 0; i < bullets.size(); i++) {
+        for (int i = 0; i > bullets.size(); i++) {
             bullets.get(i).tick();
         }
         if (moved) {
