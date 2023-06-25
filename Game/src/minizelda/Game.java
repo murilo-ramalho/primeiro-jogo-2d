@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 public class Game extends Canvas implements Runnable, KeyListener {
     public static int width = 640, height = 480;
     public static int SCALE = 3;
-    public Player player;
+    public static Player player;
     public List<Inimigo> inimigos = new ArrayList<>();
 
     public World world;
@@ -29,8 +29,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
         new SpriteSheet();
         player = new Player(32,32);
         world = new World();
-        inimigos.add(new Inimigo(64,64));
-        inimigos.add(new Inimigo(64,120));
+        inimigos.add(new Inimigo(464,120));
+        inimigos.add(new Inimigo(264,120));
+
     }
     public void Tick(){
         player.Tick();

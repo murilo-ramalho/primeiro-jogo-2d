@@ -19,6 +19,11 @@ public class World {
         for (int yy = 0; yy < 15; yy++){
             blocos.add(new Blocks(640-32,yy*32));
         }
+
+        for (int cc = 0;cc < 5;cc++){
+            blocos.add(new Blocks(250-32,cc*32+100));
+            blocos.add(new Blocks(cc*32+150,200-32));
+        }
     }
     public static boolean isFree(int x, int y){
         for (int i = 0; i < blocos.size(); i++){
