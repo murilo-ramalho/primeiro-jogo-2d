@@ -1,11 +1,15 @@
 package minizelda;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -15,16 +19,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static int width = 640, height = 480;
     public static int SCALE = 3;
     public Player player;
+    public List<Inimigo> inimigos = new ArrayList<>();
+
     public World world;
+
     public Game() {
         this.addKeyListener(this);
         this.setPreferredSize(new Dimension(width, height));
         new SpriteSheet();
         player = new Player(32,32);
         world = new World();
+        inimigos.add(new Inimigo(64,64));
+        inimigos.add(new Inimigo(64,120));
     }
     public void Tick(){
         player.Tick();
+        for (int i = 0; i < inimigos.size(); i++){
+            inimigos.get(i).Tick();
+        }
     }
     public void Render(){
         BufferStrategy bs = this.getBufferStrategy();
@@ -42,8 +54,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
         player.Render(g);
         world.Render(g);
 
+        for (int i = 0; i < inimigos.size(); i++){
+            inimigos.get(i).Render(g);
+        }
+
         bs.show();
     }
+
     public static void main(String[] args) {
         Game game = new Game();
         JFrame frame = new JFrame();
@@ -52,7 +69,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
         frame.setTitle("mini zelda");
         frame.pack();
         frame.setLocationRelativeTo(null);
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

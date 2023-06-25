@@ -16,10 +16,11 @@ public class Inimigo extends Rectangle{
         super(x,y,32,32);
     }
     public void Tick(){
-        boolean moved = false;
+        boolean moved = true;
         if (right==1){
             x++;
         }
+
         if (shoot){
             shoot = false;
             bullets.add(new Bullet(x,y,di));
@@ -27,10 +28,20 @@ public class Inimigo extends Rectangle{
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).tick();
         }
+        if (moved) {
+            curFrames++;
+            if (curFrames == taregetFrames) {
+                curFrames = 0;
+                curAnimatio++;
+                if (curAnimatio == SpriteSheet.inimigo_front.length) {
+                    curAnimatio = 0;
+                }
+            }
+        }
 
     }
     public void Render(Graphics g){
-        g.drawImage(SpriteSheet.player_front[curAnimatio],x,y,32,32,null);
+        g.drawImage(SpriteSheet.inimigo_front[curAnimatio],x,y,32,32,null);
         for (int i = 0 ; i < bullets.size(); i++){
             bullets.get(i).render(g);
         }
